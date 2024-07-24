@@ -1,15 +1,19 @@
+using Microsoft.Unity.VisualStudio.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class CardDrag : MonoBehaviour, IDragHandler, IDropHandler
 {
-    [SerializeField] GameObject _canvas;
+    [SerializeField] GameObject _baceSlot;
+    [SerializeField] CharacterData _characterData;
     public void OnDrag(PointerEventData eventData)
     {
-        transform.parent = _canvas.transform;
+        transform.parent = _baceSlot.transform;
         transform.position = eventData.position;
     }
 
@@ -27,8 +31,8 @@ public class CardDrag : MonoBehaviour, IDragHandler, IDropHandler
             }
             else
             {
-                transform.position = _canvas.transform.position;
-                transform.parent = _canvas.transform;
+                transform.position = _baceSlot.transform.position;
+                transform.parent = _baceSlot.transform;
             }
         }
     }
