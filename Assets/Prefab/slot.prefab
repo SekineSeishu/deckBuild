@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2668865501749097196}
   - component: {fileID: 2813862599933347120}
   - component: {fileID: 2526953383969343466}
+  - component: {fileID: 5841179077668402170}
   m_Layer: 5
   m_Name: characterSlot
   m_TagString: Untagged
@@ -89,6 +90,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baceSlot: {fileID: 5254576575734749948}
+  _characterData: {fileID: 0}
+--- !u!114 &5841179077668402170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3072245646363611389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616121bb869ffdf47b2e65c7e84958cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data: {fileID: 11400000, guid: 5740ce1843e647248b3d26bf7ea6005a, type: 2}
+  cost: 0
+  hp: 0
+  _image: {fileID: 0}
+  cardImage: {fileID: 2813862599933347120}
+  baceImage: {fileID: 5101947306330617923}
 --- !u!1 &5254576575734749948
 GameObject:
   m_ObjectHideFlags: 0
