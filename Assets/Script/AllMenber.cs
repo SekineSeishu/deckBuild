@@ -23,6 +23,10 @@ public class AllMenber : MonoBehaviour
         {
             costText.color = Color.red;
         }
+        else
+        {
+            costText.color = Color.white;
+        }
     }
 
     public void saveButton()
