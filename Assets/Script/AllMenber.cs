@@ -19,7 +19,7 @@ public class AllMenber : MonoBehaviour
     void Update()
     {
         costText.text = "Cost:" + allCost;
-        if (allCost > 10)
+        if (allCost >= 10)
         {
             costText.color = Color.red;
         }

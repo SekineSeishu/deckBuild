@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 437025e6f91bc424f802814defa704b9, type: 3}
-  m_Name: Magic
+  m_Name: RASHID
   m_EditorClassIdentifier: 
-  _cost: 5
-  _hp: 100
-  _image: {fileID: 21300000, guid: ad5cab1590e32ff43b7ca42838cb6425, type: 3}
+  _cost: 4
+  _hp: 10000
+  _image: {fileID: 21300000, guid: 316ebd2bf54246e4b8f300ae0fc1acf7, type: 3}

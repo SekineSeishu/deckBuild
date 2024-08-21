@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 437025e6f91bc424f802814defa704b9, type: 3}
-  m_Name: Beast
+  m_Name: DHALSIM
   m_EditorClassIdentifier: 
-  _cost: 4
-  _hp: 120
-  _image: {fileID: 21300000, guid: e147ec3d185c5aa428711793d9f87d42, type: 3}
+  _cost: 1
+  _hp: 10000
+  _image: {fileID: 21300000, guid: 749c1d736a38f5d4698e1be3ec085306, type: 3}

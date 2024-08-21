@@ -2,6 +2,7 @@ using Microsoft.Unity.VisualStudio.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,11 +10,13 @@ using UnityEngine.UIElements;
 
 public class CardDrag : MonoBehaviour, IDragHandler, IDropHandler
 {
+    [SerializeField] Canvas canvas;
     [SerializeField] GameObject _baceSlot;
-    [SerializeField] CharacterData _characterData;
     public void OnDrag(PointerEventData eventData)
     {
-        transform.parent = _baceSlot.transform;
+        canvas = GetComponentInParent<Canvas>();
+        transform.parent = null;
+        transform.SetParent(canvas.transform);
         transform.position = eventData.position;
     }
 

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 437025e6f91bc424f802814defa704b9, type: 3}
-  m_Name: Briar
+  m_Name: RYU
   m_EditorClassIdentifier: 
   _cost: 3
-  _hp: 150
-  _image: {fileID: 21300000, guid: b2a9395482f5fc14ebb5b6ac40f7b203, type: 3}
+  _hp: 10000
+  _image: {fileID: 21300000, guid: aaa62c77d9a492646a1935756326a6ad, type: 3}
