@@ -8,4 +8,5 @@ public class CharacterData : ScriptableObject
     public int _cost;
     public int _hp;
     public Sprite _image;
+    public int _number;
 }
