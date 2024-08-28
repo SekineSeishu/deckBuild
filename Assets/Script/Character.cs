@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
     public CharacterData _data;
+    public int number;
     public int cost;
     public int hp;
     public Sprite _image;
@@ -15,6 +17,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        number = _data._number;
         cost = _data._cost;
         hp = _data._hp;
         _image = _data._image;
