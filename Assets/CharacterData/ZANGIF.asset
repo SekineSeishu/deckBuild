@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: ZANGIF
   m_EditorClassIdentifier: 
   _cost: 5
-  _hp: 11000
+  _hp: 20000
   _image: {fileID: 21300000, guid: 51c6c9c7fab8eac4ebe29b949b51f1c0, type: 3}
+  _number: 0

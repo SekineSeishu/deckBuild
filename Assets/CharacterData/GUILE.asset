@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: GUILE
   m_EditorClassIdentifier: 
   _cost: 4
-  _hp: 10000
+  _hp: 13000
   _image: {fileID: 21300000, guid: 7cfbf7dc4e15e2848bbe3a571ad6dc9b, type: 3}
+  _number: 0

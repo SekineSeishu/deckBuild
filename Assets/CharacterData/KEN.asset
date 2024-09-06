@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: KEN
   m_EditorClassIdentifier: 
   _cost: 4
-  _hp: 10000
+  _hp: 8000
   _image: {fileID: 21300000, guid: cd544d9d366cf8347a8fb0123114334e, type: 3}
+  _number: 0

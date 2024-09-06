@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: HONDA
   m_EditorClassIdentifier: 
   _cost: 1
-  _hp: 10500
+  _hp: 12000
   _image: {fileID: 21300000, guid: 4978652c2730eb741aa2862ad28801df, type: 3}
+  _number: 0

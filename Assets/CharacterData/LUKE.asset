@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: LUKE
   m_EditorClassIdentifier: 
   _cost: 2
-  _hp: 10000
+  _hp: 5000
   _image: {fileID: 21300000, guid: e1e0553d70fbc324ab4066dc77ba4fbf, type: 3}
+  _number: 0

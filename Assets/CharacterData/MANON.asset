@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: MANON
   m_EditorClassIdentifier: 
   _cost: 2
-  _hp: 10000
+  _hp: 4000
   _image: {fileID: 21300000, guid: e99fc79049d755b4baae27f4f4378fef, type: 3}
+  _number: 0

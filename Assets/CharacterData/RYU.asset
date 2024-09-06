@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: RYU
   m_EditorClassIdentifier: 
   _cost: 3
-  _hp: 10000
+  _hp: 1000
   _image: {fileID: 21300000, guid: aaa62c77d9a492646a1935756326a6ad, type: 3}
+  _number: 0

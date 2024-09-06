@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: MARISA
   m_EditorClassIdentifier: 
   _cost: 2
-  _hp: 10500
+  _hp: 3000
   _image: {fileID: 21300000, guid: 0cc821933d00d71489f8c59996b14ece, type: 3}
+  _number: 0

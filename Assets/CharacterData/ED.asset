@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: ED
   m_EditorClassIdentifier: 
   _cost: 5
-  _hp: 10000
+  _hp: 14000
   _image: {fileID: 21300000, guid: 745027ee9bd2c7f4197aa5334ce3d68b, type: 3}
+  _number: 0
