@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.UI;
+using static SlotManager;
 
 public class SlotManager : MonoBehaviour
 {
@@ -14,8 +15,9 @@ public class SlotManager : MonoBehaviour
         minNumber,
         maxNumber,
     }
-    public enum sortGrop
+    public enum sortGroup
     {
+        none,
         minHp,
         maxHp,
         minCost,
@@ -23,19 +25,23 @@ public class SlotManager : MonoBehaviour
     }
 
     [SerializeField] private numberSort _number;
-    [SerializeField] private sortGrop _sortGrop;
+    [SerializeField] private sortGroup _sortGroup;
     [SerializeField] private List<CharacterData> characterList;
     [SerializeField] private List<CharacterData> myDeck;
     [SerializeField] private List<Transform> firstSlotPosition;
     [SerializeField] private List<Transform> slotsPosition;
-    [SerializeField] private Transform content;
+    [SerializeField] private RectTransform content;
     [SerializeField] private GameObject slotPositionPrefab;
     [SerializeField] private GameObject slotPrefab;
     [SerializeField] private GameObject sortMap;
     [SerializeField] private ToggleGroup numberToggleGrop;
     [SerializeField] private ToggleGroup sortToggleGrop;
+    private int itemPreRow = 4;
+    [SerializeField] private GameObject rowPrefab;
+    private GameObject currentRow;
+    private int currentItemIndex = 0;
     private float nextPage = -285;
-    private int maxSlots = 255;
+    [SerializeField]private int maxSlots = 255;
 
     public bool newGet;
     public bool manyHp;
@@ -64,9 +70,13 @@ public class SlotManager : MonoBehaviour
         ClearSlot();
         for (int i = 0; i < myDeck.Count; i++)
         {
-            GameObject characterSlot = Instantiate(slotPrefab, slotsPosition[i]);
+            if (currentItemIndex % itemPreRow == 0)
+            {
+                currentRow = Instantiate(rowPrefab, content);
+            }
+            GameObject characterSlot = Instantiate(slotPrefab, currentRow.transform);
             characterSlot.GetComponentInChildren<Character>()._data = myDeck[i];
-            nextSlot(slotsPosition[i]);
+            currentItemIndex++;
         }
     }
 
@@ -83,62 +93,23 @@ public class SlotManager : MonoBehaviour
         }
     }
 
-    public void nextSlot(Transform slotposition)//次のスロットポジションを作る
-    {
-        GameObject newSlot = Instantiate(slotPositionPrefab, content);
-        newSlot.transform.position = new Vector3(slotposition.transform.position.x, 
-                                                                      slotposition.transform.position.y + nextPage, 
-                                                                      slotposition.transform.position.z);
-        slotsPosition.Add(newSlot.transform);
-    }
-
     public void ClearSlot()//スロット表示一度初期化する
     {
-        for (int i = 0;i < slotsPosition.Count;i++)
+        currentItemIndex = 0;
+        foreach (Transform item in content)
         {
-            if (i <= firstSlotPosition.Count)
-            {
-                foreach (Transform child in slotsPosition[i])
-                {
-                    Destroy(child.gameObject);
-                }
-            }
-            else
-            {
-                Destroy(slotsPosition[i].gameObject);
-            }
+            Destroy(item.gameObject);
         }
-        slotsPosition.Clear();
-        slotsPosition = new List<Transform>(firstSlotPosition);
     }
 
+    //ソート設定画面を開く
     public void OpenSortMapButton()
     {
         sortMap.SetActive(true);
     }
 
-    public void SrotButton()
-    {
-        string numberLabel = numberToggleGrop.ActiveToggles()
-            .First(t => t.name == "Label").GetComponentInChildren<Text>().text;
-        string sortLabel = sortToggleGrop.ActiveToggles()
-            .First(t => t.name == "Label").GetComponentInChildren<Text>().text;
-        if (numberLabel != null)
-        {
-            if (Enum.TryParse<numberSort>(numberLabel, out numberSort selectNumber))
-            {
-                _number = selectNumber;
-            }
-            if (Enum.TryParse<sortGrop>(sortLabel, out sortGrop sort))
-            {
-                _sortGrop = sort;
-            }
-        }
-        ChengeSort();
-        sortMap.SetActive(false);
-    }
-
-    public void ChengeSort()//HPを比較して並び替える
+    //条件に応じてソートを行う
+    public void ChengeSort()
     {
         switch (_number)//入手順の並びとそれぞれの昇順で切り替える
         {
@@ -149,44 +120,44 @@ public class SlotManager : MonoBehaviour
                 MaxNumberSort();
                 break;
         }
+        //ソート後表示する
         SetSlot();
-        foreach (var characterObject in myDeck)
-        {
-            CharacterData character = characterObject;
-            if (character != null)
-            {
-                Debug.Log(characterObject.name + ": HP = " + character._hp);
-            }
-        }
+        sortMap.SetActive(false);
     }
 
     public void MinNumberSort()
     {
         //HPとコストをそれぞれソート
-        switch (_sortGrop)
+        switch (_sortGroup)
         {
-            case sortGrop.minHp:
+            case sortGroup.none:
+                //詳細ソートが設定されていない(none)なら入手順でソート
+                myDeck = myDeck
+                .OrderBy(character => character._number)// 入手順を昇順でソート
+                .ToList();
+                break;
+            case sortGroup.minHp:
                 myDeck = myDeck
                     .OrderBy(character => character._hp)// まずはHP順に昇順でソート
                     .ThenBy(character => character._number) // 同じHPだったら入手順を昇順でソート
                     .ToList();
                 Debug.Log("HP:昇順　入手:昇順");
                 break;
-            case sortGrop.maxHp:
+            case sortGroup.maxHp:
                 myDeck = myDeck
                     .OrderByDescending(character => character._hp)
                     .ThenBy(character => character._number)
                     .ToList();
                 Debug.Log("HP:降順　入手:昇順");
                 break;
-            case sortGrop.minCost:
+            case sortGroup.minCost:
                 myDeck = myDeck
                     .OrderBy(character => character._cost)// まずはHP順に降順でソート
                     .ThenBy(character => character._number)// 同じHPだったら入手順を昇順でソート
                     .ToList();
                 Debug.Log("COST:昇順　入手:昇順");
                 break;
-            case sortGrop.maxCost:
+            case sortGroup.maxCost:
                 myDeck = myDeck
                    .OrderByDescending(character => character._hp)// まずはCOST順に昇順でソート
                    .ThenBy(character => character._number)// 同じCOSTだったら入手順を昇順でソート
@@ -199,32 +170,81 @@ public class SlotManager : MonoBehaviour
     public void MaxNumberSort()
     {
         //HPとコストをそれぞれソート
-        switch (_sortGrop)
+        switch (_sortGroup)
         {
-            case sortGrop.minHp:
+            case sortGroup.none:
+                //詳細ソートが設定されていない(none)なら入手順でソート
+                myDeck = myDeck
+                .OrderByDescending(character => character._number)// 入手順を降順でソート
+                .ToList();
+                break;
+            case sortGroup.minHp:
                 myDeck = myDeck
                     .OrderBy(character => character._hp)// まずはHP順に昇順でソート
                     .ThenByDescending(character => character._number) // 同じHPだったら入手順を降順でソート
                     .ToList();
                 break;
-            case sortGrop.maxHp:
+            case sortGroup.maxHp:
                 myDeck = myDeck
                     .OrderByDescending(character => character._hp)// まずはHP順に降順でソート
                     .ThenBy(character => character._number)// 同じHPだったら入手順を降順でソート
                     .ToList();
                 break;
-            case sortGrop.minCost:
+            case sortGroup.minCost:
                 myDeck = myDeck
                     .OrderBy(character => character._cost)// まずはCOST順に昇順でソート
                     .ThenByDescending(character => character._number)// 同じHPだったら入手順を降順でソート
                     .ToList();
                 break;
-            case sortGrop.maxCost:
+            case sortGroup.maxCost:
                 myDeck = myDeck
                    .OrderByDescending(character => character._hp)// まずはCOST順に降順でソート
                    .ThenByDescending(character => character._number)// 同じHPだったら入手順を降順でソート
                    .ToList();
                 break;
         }
+
+    }
+    public void SetNumberSort(numberSort numberSort)
+    {
+        _number = numberSort;
+    }
+    public void SetSortGroup(sortGroup sortGroup)
+    {
+        _sortGroup = sortGroup;
+    }
+
+    public void OnMinNumberToggleChanged(bool isOn)
+    {
+        if (isOn) SetNumberSort(numberSort.minNumber);
+    }
+
+    public void OnMaxNumberToggleChanged(bool isOn)
+    {
+        if (isOn) SetNumberSort(numberSort.maxNumber); 
+    }
+
+    public void OnMinHpToggleChanged(bool isOn)
+    {
+        if (isOn) SetSortGroup(sortGroup.minHp);
+        else SetSortGroup(sortGroup.none);
+    }
+
+    public void OnMaxHpToggleChanged(bool isOn)
+    {
+        if (isOn) SetSortGroup(sortGroup.maxHp);
+        else SetSortGroup(sortGroup.none);
+    }
+
+    public void OnMinCostToggleChanged(bool isOn)
+    {
+        if (isOn) SetSortGroup(sortGroup.minCost);
+        else SetSortGroup(sortGroup.none);
+    }
+
+    public void OnMaxCostToggleChanged(bool isOn)
+    {
+        if (isOn) SetSortGroup(sortGroup.maxCost);
+        else SetSortGroup(sortGroup.none);
     }
 }
