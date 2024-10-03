@@ -9,4 +9,5 @@ public class CharacterData : ScriptableObject
     public int _hp;
     public Sprite _image;
     public int _number;
+    public bool _set;
 }
