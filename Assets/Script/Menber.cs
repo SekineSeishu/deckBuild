@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Menber : MonoBehaviour
 {
+    //メンバーの総コストによる処理
     public AllMenber menberController;
+    //現在のスロットの状態
     public bool onMenber;
     private Character menber;
     private int nowMemberCount;
+    //スロットのコスト状態
     public int menberCost;
     void Start()
     {
@@ -20,7 +23,7 @@ public class Menber : MonoBehaviour
     {
         if (menberChack())
         {
-            if (nowMemberCount == 1)
+            if (nowMemberCount == 1)//スロットにキャラクターがいればこのスロットにキャラクターのコストを追加して計算
             {
                 if (!onMenber)
                 {
@@ -29,7 +32,7 @@ public class Menber : MonoBehaviour
                     onMenber = true;
                 }
             }
-            else if(nowMemberCount == 0)
+            else if(nowMemberCount == 0)//スロットにキャラクターがいなければこのスロットのコストを０にして計算
             {
                 menberCost = 0;
                 menberController.GetmenberCost();
@@ -38,7 +41,7 @@ public class Menber : MonoBehaviour
         }
     }
 
-    public bool menberChack()
+    public bool menberChack()//メンバースロットの子を確認する
     {
         if (transform.childCount != nowMemberCount)
         {
