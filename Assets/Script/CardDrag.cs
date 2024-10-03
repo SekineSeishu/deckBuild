@@ -11,7 +11,10 @@ using UnityEngine.UIElements;
 public class CardDrag : MonoBehaviour, IDragHandler, IDropHandler
 {
     [SerializeField] Canvas canvas;
+    [Space(5),Header("デッキ内に残るキャラクターのスロット")]
     [SerializeField] GameObject _baceSlot;
+
+    //ドラッグ時
     public void OnDrag(PointerEventData eventData)
     {
         canvas = GetComponentInParent<Canvas>();
@@ -20,8 +23,10 @@ public class CardDrag : MonoBehaviour, IDragHandler, IDropHandler
         transform.position = eventData.position;
     }
 
+    //ドロップ時
     public void OnDrop(PointerEventData eventData)
     {
+        //ドロップ先が条件と一致しなければデッキ内のスロットに戻される
         var results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
         foreach (var hit in results)
