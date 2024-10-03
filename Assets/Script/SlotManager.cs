@@ -10,12 +10,12 @@ using static SlotManager;
 
 public class SlotManager : MonoBehaviour
 {
-    public enum numberSort
+    public enum numberSort //入手順
     {
         minNumber,
         maxNumber,
     }
-    public enum sortGroup
+    public enum sortGroup //ステータスソート
     {
         none,
         minHp,
@@ -24,29 +24,27 @@ public class SlotManager : MonoBehaviour
         maxCost
     }
 
+    [Header("現在の表示順")]
     [SerializeField] private numberSort _number;
     [SerializeField] private sortGroup _sortGroup;
+    [Space(10), Header("キャラクターデータ")]
     [SerializeField] private List<CharacterData> characterList;
     [SerializeField] private List<CharacterData> myDeck;
-    [SerializeField] private List<Transform> firstSlotPosition;
-    [SerializeField] private List<Transform> slotsPosition;
+    [Space(10), Header("親オブジェクト")]
     [SerializeField] private RectTransform content;
-    [SerializeField] private GameObject slotPositionPrefab;
+    [Space(5), Header("表示スロットオブジェクト")]
     [SerializeField] private GameObject slotPrefab;
+    [Space(5), Header("表示スロットレイアウト")]
+    [SerializeField] private GameObject rowPrefab;
+    [Space(10), Header("ソートUI")]
     [SerializeField] private GameObject sortMap;
     [SerializeField] private ToggleGroup numberToggleGrop;
     [SerializeField] private ToggleGroup sortToggleGrop;
     private int itemPreRow = 4;
-    [SerializeField] private GameObject rowPrefab;
     private GameObject currentRow;
     private int currentItemIndex = 0;
-    private float nextPage = -285;
+    [Space(10),Header("インベントリの最大容量")]
     [SerializeField]private int maxSlots = 255;
-
-    public bool newGet;
-    public bool manyHp;
-    public bool manyCost;
-
 
     void Start()
     {
@@ -65,11 +63,12 @@ public class SlotManager : MonoBehaviour
         SetSlot();
     }
 
-    public void SetSlot()
+    public void SetSlot()//デッキ内のキャラクターを表示する
     {
         ClearSlot();
         for (int i = 0; i < myDeck.Count; i++)
         {
+            //一列の最大容量までいったら次の列を生成
             if (currentItemIndex % itemPreRow == 0)
             {
                 currentRow = Instantiate(rowPrefab, content);
@@ -214,6 +213,7 @@ public class SlotManager : MonoBehaviour
         _sortGroup = sortGroup;
     }
 
+    //Toggleが押されたら対応する条件をセットする
     public void OnMinNumberToggleChanged(bool isOn)
     {
         if (isOn) SetNumberSort(numberSort.minNumber);
