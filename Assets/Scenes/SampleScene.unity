@@ -792,7 +792,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1249785938}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9995556
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1318,23 +1318,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5a863edd8396a4444b38e5c32137102a, type: 2}
   - {fileID: 11400000, guid: 2e37ffb3fa75c7b45ae1d59537cb68f9, type: 2}
   myDeck: []
-  firstSlotPosition:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  slotsPosition: []
   content: {fileID: 2115148952}
-  slotPositionPrefab: {fileID: 2394464432344034486, guid: b2497b552c43dfd4cb1217127f6e2ded, type: 3}
   slotPrefab: {fileID: 5254576575734749948, guid: e1552806afe961d40a152b2f53ae1350, type: 3}
+  rowPrefab: {fileID: 5466577821022323277, guid: 4c037f279c25bd74e8338cd8cc12c650, type: 3}
   sortMap: {fileID: 27609315}
   numberToggleGrop: {fileID: 1442995808}
   sortToggleGrop: {fileID: 1214719542}
-  rowPrefab: {fileID: 5466577821022323277, guid: 4c037f279c25bd74e8338cd8cc12c650, type: 3}
   maxSlots: 255
-  newGet: 0
-  manyHp: 0
-  manyCost: 0
 --- !u!1 &690287517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2239,6 +2229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allCost: 0
+  maximumCost: 10
   costText: {fileID: 939464340}
   saveText: {fileID: 1868705849}
   menberList:
@@ -4782,7 +4773,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -491.5, y: 341.5}
+  m_AnchoredPosition: {x: -491.49963, y: 341.5}
   m_SizeDelta: {x: 983, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2115148953
