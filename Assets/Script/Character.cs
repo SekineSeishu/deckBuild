@@ -18,6 +18,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //キャラクターデータを受け取る
         number = _data._number;
         cost = _data._cost;
         hp = _data._hp;
