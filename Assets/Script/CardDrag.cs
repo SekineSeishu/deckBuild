@@ -33,18 +33,30 @@ public class CardDrag : MonoBehaviour, IDragHandler, IDropHandler
         {
             if (hit.gameObject.name == "Set")
             {
+                MemberSlot memberSlot = hit.gameObject.GetComponent<MemberSlot>();
+                if (memberSlot.onMenber)
+                {
+                    memberSlot.gameObject.GetComponentInChildren<CardDrag>().backSlot();
+                }
                 transform.position = hit.gameObject.transform.position;
                 transform.parent = hit.gameObject.transform;
+                memberSlot.menberChack();
                 Debug.Log("ƒZƒbƒg‚³‚ê‚½");
             }
             else
             {
-                transform.position = _baceSlot.transform.position;
-                transform.parent = _baceSlot.transform;
+                backSlot();
             }
         }
     }
-    // Start is called before the first frame update
+
+    private void backSlot()
+    {
+        transform.position = _baceSlot.transform.position;
+        transform.parent = _baceSlot.transform;
+    }
+
+
     void Start()
     {
         
