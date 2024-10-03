@@ -6,6 +6,7 @@ using TMPro;
 public class AllMenber : MonoBehaviour
 {
     public int allCost;
+    public int maximumCost;
     public TMP_Text costText;
     public TMP_Text saveText;
     public List<Menber> menberList;
@@ -16,7 +17,7 @@ public class AllMenber : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Update()//総コストの値によって表示文字の色を変化させる
     {
         costText.text = "Cost:" + allCost;
         if (allCost >= 10)
@@ -29,9 +30,9 @@ public class AllMenber : MonoBehaviour
         }
     }
 
-    public void saveButton()
+    public void saveButton()//ボタンを押した際の総コストによる処理
     {
-        if (allCost > 10)
+        if (allCost >= maximumCost)
         {
             saveText.text = "CostOver!";
             saveText.color = Color.red;
@@ -49,7 +50,7 @@ public class AllMenber : MonoBehaviour
 
     }
 
-    public void GetmenberCost()
+    public void GetmenberCost()//一度コストを初期化したのちそれぞれのメンバースロットのコストの合計を調べる
     {
         allCost = 0;
         foreach (var menber in menberList)
