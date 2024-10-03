@@ -9,7 +9,7 @@ public class AllMenber : MonoBehaviour
     public int maximumCost;
     public TMP_Text costText;
     public TMP_Text saveText;
-    public List<Menber> menberList;
+    public List<MemberSlot> menberList;
     // Start is called before the first frame update
     void Start()
     {
