@@ -11,9 +11,8 @@ public class Character : MonoBehaviour
     public int number;
     public int cost;
     public int hp;
-    public Sprite _image;
     public Image cardImage;
-    public Image baceImage;
+    public CardBase Base;
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +21,9 @@ public class Character : MonoBehaviour
         number = _data._number;
         cost = _data._cost;
         hp = _data._hp;
-        _image = _data._image;
-        cardImage.sprite = _image;
-        baceImage.sprite = _image;
+        cardImage.sprite = _data._image;
+        Base._data = _data;
+        Base.firstSetUp();
     }
 
     // Update is called once per frame
