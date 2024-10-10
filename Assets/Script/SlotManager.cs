@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static SlotManager;
@@ -30,8 +31,10 @@ public class SlotManager : MonoBehaviour
     [Space(10), Header("キャラクターデータ")]
     [SerializeField] private List<CharacterData> characterList;
     [SerializeField] private List<CharacterData> myDeck;
+    [SerializeField] private List<GameObject> inDeckObject;
     [Space(10), Header("親オブジェクト")]
     [SerializeField] private RectTransform content;
+    [SerializeField] private RectTransform storage;
     [Space(5), Header("表示スロットオブジェクト")]
     [SerializeField] private GameObject slotPrefab;
     [Space(5), Header("表示スロットレイアウト")]
@@ -60,10 +63,10 @@ public class SlotManager : MonoBehaviour
             myDeck.Add(character);
         }
         ListNumberSort();
-        SetSlot();
+        firstSetSlot();
     }
 
-    public void SetSlot()//デッキ内のキャラクターを表示する
+    public void firstSetSlot()//デッキ内のキャラクターを表示する
     {
         ClearSlot();
         for (int i = 0; i < myDeck.Count; i++)
@@ -75,8 +78,30 @@ public class SlotManager : MonoBehaviour
             }
             GameObject characterSlot = Instantiate(slotPrefab, currentRow.transform);
             characterSlot.GetComponentInChildren<Character>()._data = myDeck[i];
+            inDeckObject.Add(characterSlot);
             currentItemIndex++;
         }
+    }
+
+    //ソート後の再表示
+    public void UpdateDeck()
+    {
+        for (int m = 0; m < myDeck.Count; m++)
+        {
+            for (int i = 0; i < inDeckObject.Count; i++)
+            {
+                CardBase Base = inDeckObject[i].GetComponent<CardBase>();
+                if (myDeck[m]._number == Base._data._number)
+                {
+                    if (currentItemIndex % itemPreRow == 0)
+                    {
+                        currentRow = Instantiate(rowPrefab, content);
+                    }
+                    Base.gameObject.transform.parent = currentRow.transform;
+                    currentItemIndex++;
+                }
+            }
+        } 
     }
 
     public void ListNumberSort()//入手順に並び替える
@@ -94,6 +119,10 @@ public class SlotManager : MonoBehaviour
 
     public void ClearSlot()//スロット表示一度初期化する
     {
+        foreach (GameObject card in inDeckObject)
+        {
+            card.transform.parent = storage;
+        }
         currentItemIndex = 0;
         foreach (Transform item in content)
         {
@@ -120,7 +149,8 @@ public class SlotManager : MonoBehaviour
                 break;
         }
         //ソート後表示する
-        SetSlot();
+        ClearSlot();
+        UpdateDeck();
         sortMap.SetActive(false);
     }
 
