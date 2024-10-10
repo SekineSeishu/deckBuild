@@ -12,7 +12,8 @@ public class CardDrag : MonoBehaviour, IDragHandler, IDropHandler
 {
     [SerializeField] Canvas canvas;
     [Space(5),Header("デッキ内に残るキャラクターのスロット")]
-    [SerializeField] GameObject _baceSlot;
+    [SerializeField] CardBase _characterBace;
+
 
     //ドラッグ時
     public void OnDrag(PointerEventData eventData)
@@ -33,6 +34,7 @@ public class CardDrag : MonoBehaviour, IDragHandler, IDropHandler
         {
             if (hit.gameObject.name == "Set")
             {
+                //親オブジェを変更しキャラクターをセット判定にする
                 MemberSlot memberSlot = hit.gameObject.GetComponent<MemberSlot>();
                 if (memberSlot.onMenber)
                 {
@@ -41,6 +43,7 @@ public class CardDrag : MonoBehaviour, IDragHandler, IDropHandler
                 transform.position = hit.gameObject.transform.position;
                 transform.parent = hit.gameObject.transform;
                 memberSlot.menberChack();
+                _characterBace._data._set = true;
                 Debug.Log("セットされた");
             }
             else
@@ -48,23 +51,14 @@ public class CardDrag : MonoBehaviour, IDragHandler, IDropHandler
                 backSlot();
             }
         }
+        _characterBace.setCharacter();
     }
 
     private void backSlot()
     {
-        transform.position = _baceSlot.transform.position;
-        transform.parent = _baceSlot.transform;
-    }
-
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //元の親オブジェに戻りセット判定を外す
+        transform.position = _characterBace.transform.position;
+        transform.parent = _characterBace.transform;
+        _characterBace._data._set = false;
     }
 }
